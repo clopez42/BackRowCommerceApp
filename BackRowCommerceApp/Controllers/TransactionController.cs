@@ -32,11 +32,18 @@ namespace BackRowCommerceApp.Controllers
         public IActionResult Create(Transaction obj)
         {
             NotificationController n = new NotificationController(_db);
-            UserController u = new UserController(_db);
             var user = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
             if(user == null)
             {
-                //u.CreateUser(Constants.States.MO);
+                UserInfo userInfo = new UserInfo
+                {
+                    AccountNum = AccountNumberGenerator(),
+                    UserName = User.Identity.Name,
+                    Balance = 0,
+                    Location = Constants.States.MO
+                };
+                _db.UserInfo.Add(userInfo);
+                _db.SaveChanges();
                 user = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
             }
             obj.UserName = user.UserName;
@@ -60,10 +67,17 @@ namespace BackRowCommerceApp.Controllers
                 _db.Transactions.Add(obj);
                 _db.SaveChanges();
                 
-                n.Create();
+                n.GenerateNotification(obj);
                 return RedirectToAction("Index");
             }
             return View(obj);
+        }
+
+        private int AccountNumberGenerator()
+        {
+            Random random = new Random();
+            int accountNum = random.Next(123456789, 999999999);
+            return accountNum;
         }
     }
 }

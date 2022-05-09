@@ -14,14 +14,66 @@ namespace BackRowCommerceApp.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Notification> objNotificationList = _db.Notifications;
+            return View(objNotificationList);
         }
 
-       
-
-        public void Create()
+        public void GenerateNotification(Transaction obj)
         {
-
+            string message = "Transaction: ";
+            /*var notificationSettingsFromDb = _db.NotificationSettings.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var userInfoFromDb = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (notificationSettingsFromDb != null)
+            {
+                if(notificationSettingsFromDb.TransactionDate == true)
+                {
+                    string tDate = obj.ProcessDate.ToString();
+                    message += tDate;
+                }
+                if(notificationSettingsFromDb.TransactionTime == true)
+                {
+                    string tTime = obj.ProcessDate.ToString();
+                    message += tTime;
+                }
+                if(notificationSettingsFromDb.OutOfStateTransaction == true)
+                {
+                    string oost = obj.Location.ToString();
+                    message += oost;
+                }
+                if(notificationSettingsFromDb.Withdrawal == true)
+                {
+                    string w = "Withdrawal of $" + obj.Amount.ToString();
+                    message += w;
+                }
+                if(notificationSettingsFromDb.Deposit == true)
+                {
+                    string d = "Deposit of $" + obj.Amount.ToString(); 
+                    message += d;
+                }
+                if((notificationSettingsFromDb.Overdraft == true) && (userInfoFromDb.Balance < 0))
+                {
+                    string o = "Your account has overdrafted";
+                    message += o;
+                }
+                if(notificationSettingsFromDb.TransactionDescription == true)
+                {
+                    string description = obj.Description;
+                    message += description;
+                }
+                if((notificationSettingsFromDb.TransactionDate == true) || (notificationSettingsFromDb.TransactionTime == true)
+                    || (notificationSettingsFromDb.OutOfStateTransaction == true) || (notificationSettingsFromDb.Withdrawal == true)
+                    || (notificationSettingsFromDb.Deposit == true) || (notificationSettingsFromDb.Overdraft == true)
+                    || (notificationSettingsFromDb.TransactionDescription == true))
+                {
+                    Notification notification = new Notification
+                    {
+                        UserName = User.Identity.Name,
+                        Message = message,
+                    };
+                    _db.Notifications.Add(notification);
+                    _db.SaveChanges();
+                }
+            }*/
         }
 
         //GET 
