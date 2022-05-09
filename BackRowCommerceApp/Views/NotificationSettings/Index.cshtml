@@ -1,0 +1,14 @@
+﻿@model IEnumerable<NotificationSettings>
+
+
+<h2 style="color:#007AA3; text-align:center">Selected Notifications</h2>
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action active">Cras justo odio</a>
+  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+  <a href="#" class="list-group-item list-group-item-action disabled">Morbi leo risus</a>
+</div>
+<div class="col-6 text-right">
+    <a asp-controller="NotificationSettings" asp-action="Edit" class="btn btn-lg" style="background-color:#006747; color:white">
+        <i class="bi bi-gear"></i> &nbsp; Edit Notifications
+    </a>
+</div>

@@ -1,0 +1,89 @@
+﻿@using System.Globalization
+@using BackRowCommerceApp.Infrastructure
+@model IEnumerable<Transaction>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 style="color:#007AA3">Transactions</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a asp-controller="Transaction" asp-action="Create" class="btn" style="background-color:#006747; color:white; float: right">
+                <i class="bi bi-plus-circle"></i> &nbsp; Create New Transaction
+            </a>
+        </div>
+    </div>
+    <br /><br />
+</div>
+
+<table class="table table-hover" style="width:100%">
+    <thead class="table-active" style="color: #007AA3">
+        <tr>
+            <th>
+                Account Number
+            </th>
+            <th>
+                Date/Time
+            </th>
+            <th>
+                Balance
+            </th>
+            <th>
+                Transaction Type
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Description
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+            {
+              //Constants c = new Constants();
+              //string? st;
+              //st = c.findKey(@obj.Location).ToString();
+        <tr>
+            <td width="15%" style="text-align: right; padding-right: 50px">
+                @obj.AccountNum
+            </td>
+            <td width="15%">
+                @obj.ProcessDate.ToString("g",CultureInfo.GetCultureInfo("en-US"))
+            </td>
+            <td width="10%" style="text-align: right; padding-right: 50px">
+                $@obj.Balance
+            </td>
+                @if(@obj.CR_DR == Constants.TransactionType.CR)
+                {
+                    <td width="15%">
+                        Credit
+                    </td>
+                }else if(obj.CR_DR == Constants.TransactionType.DR)
+                {
+                    <td width="15%">
+                        Withdrawal
+                    </td>
+                }
+                
+            <td width="10%" style="text-align: right; padding-right: 50px">
+                $@obj.Amount
+            </td>
+            <td width="10%" >
+                @obj.Location
+            </td>
+            <td width="40%">
+                @obj.Description
+            </td>
+        </tr>
+            }
+    </tbody>
+</table>
