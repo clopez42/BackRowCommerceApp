@@ -31,9 +31,8 @@ namespace BackRowCommerceApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Transaction obj)
         {
-            NotificationController n = new NotificationController(_db);
             var user = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
-            if(user == null)
+            if (user == null)
             {
                 UserInfo userInfo = new UserInfo
                 {
@@ -66,8 +65,8 @@ namespace BackRowCommerceApp.Controllers
                 obj.Balance = user.Balance;
                 _db.Transactions.Add(obj);
                 _db.SaveChanges();
-                
-                n.GenerateNotification(obj);
+
+                GenerateNotification(obj);
                 return RedirectToAction("Index");
             }
             return View(obj);
@@ -78,6 +77,65 @@ namespace BackRowCommerceApp.Controllers
             Random random = new Random();
             int accountNum = random.Next(123456789, 999999999);
             return accountNum;
+        }
+
+        public void GenerateNotification(Transaction obj)
+        {
+            string message = "Transaction: ";
+            var userInfoFromDb = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
+            var notificationSettingsFromDb = _db.NotificationSettings.FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+            if (notificationSettingsFromDb != null)
+            {
+                if (notificationSettingsFromDb.TransactionDate == true)
+                {
+                    string tDate = obj.ProcessDate.ToString();
+                    message += tDate;
+                }
+                if (notificationSettingsFromDb.TransactionTime == true)
+                {
+                    string tTime = obj.ProcessDate.ToString();
+                    message += tTime;
+                }
+                if (notificationSettingsFromDb.OutOfStateTransaction == true)
+                {
+                    string oost = obj.Location.ToString();
+                    message += oost;
+                }
+                if (notificationSettingsFromDb.Withdrawal == true)
+                {
+                    string w = "Withdrawal of $" + obj.Amount.ToString();
+                    message += w;
+                }
+                if (notificationSettingsFromDb.Deposit == true)
+                {
+                    string d = "Deposit of $" + obj.Amount.ToString();
+                    message += d;
+                }
+                if ((notificationSettingsFromDb.Overdraft == true) && (userInfoFromDb.Balance < 0))
+                {
+                    string o = "Your account has overdrafted";
+                    message += o;
+                }
+                if (notificationSettingsFromDb.TransactionDescription == true)
+                {
+                    string description = obj.Description;
+                    message += description;
+                }
+                if ((notificationSettingsFromDb.TransactionDate == true) || (notificationSettingsFromDb.TransactionTime == true)
+                    || (notificationSettingsFromDb.OutOfStateTransaction == true) || (notificationSettingsFromDb.Withdrawal == true)
+                    || (notificationSettingsFromDb.Deposit == true) || (notificationSettingsFromDb.Overdraft == true)
+                    || (notificationSettingsFromDb.TransactionDescription == true))
+                {
+                    Notification notification = new Notification
+                    {
+                        UserName = User.Identity.Name,
+                        Message = message,
+                    };
+                    _db.Notifications.Add(notification);
+                    _db.SaveChanges();
+                }
+            }
         }
     }
 }
