@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BackRowCommerceApp.Migrations
 {
-    public partial class initial : Migration
+    public partial class AddToDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,12 +49,26 @@ namespace BackRowCommerceApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notifications", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NotificationSettings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountNum = table.Column<int>(type: "int", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TransactionDate = table.Column<bool>(type: "bit", nullable: false),
                     TransactionTime = table.Column<bool>(type: "bit", nullable: false),
                     OutOfStateTransaction = table.Column<bool>(type: "bit", nullable: false),
@@ -74,7 +88,7 @@ namespace BackRowCommerceApp.Migrations
                 {
                     TransactionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountNum = table.Column<int>(type: "int", nullable: false),
+                    AccountNum = table.Column<int>(type: "int", nullable: true),
                     ProcessDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Balance = table.Column<float>(type: "real", nullable: true),
                     CR_DR = table.Column<int>(type: "int", nullable: false),
@@ -85,6 +99,22 @@ namespace BackRowCommerceApp.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.TransactionId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserInfo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AccountNum = table.Column<int>(type: "int", maxLength: 10, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Balance = table.Column<float>(type: "real", nullable: false),
+                    Location = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserInfo", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -251,10 +281,16 @@ namespace BackRowCommerceApp.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Notifications");
+
+            migrationBuilder.DropTable(
                 name: "NotificationSettings");
 
             migrationBuilder.DropTable(
                 name: "Transactions");
+
+            migrationBuilder.DropTable(
+                name: "UserInfo");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

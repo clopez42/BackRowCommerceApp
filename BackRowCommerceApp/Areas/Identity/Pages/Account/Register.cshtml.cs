@@ -75,15 +75,11 @@ namespace BackRowCommerceApp.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "Name")]
+            [Display(Name = "Username")]
             public string Name { get; set; }
             [Required]
             [Display(Name = "State")]
             public Constants.States State { get; set; }
-            [MinLength(9)]
-            [MaxLength(10)]
-            public int? AccountNum { get; set; }
-            public float? Balance { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -148,20 +144,6 @@ namespace BackRowCommerceApp.Areas.Identity.Pages.Account
 
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-
-                    /*UserController _userInfo = new UserController();
-                    Constants c = new Constants();
-                    //Constants.States state = c.findKey(Input.State);
-                    
-                    UserInfo userInfo = new UserInfo
-                    {
-                        AccountNum = AccountNumberGenerator(),
-                        UserName = Input.Name,
-                        Balance = 0,
-                        Location = Input.State
-                    };
-                    _userInfo.CreateUser(userInfo);*/
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

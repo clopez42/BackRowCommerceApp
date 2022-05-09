@@ -2,10 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\BackRowCommerceApp",
-    "\\BackRowCommerceApp\\Views",
-    "\\BackRowCommerceApp\\Views\\Shared",
-    "\\BackRowCommerceApp\\wwwroot",
-    "\\BackRowCommerceApp\\wwwroot\\css"
+    "\\BackRowCommerceApp\\Models"
   ],
   "SelectedNode": "\\BackRowCommerceApp.sln",
   "PreviewInSolutionExplorer": false

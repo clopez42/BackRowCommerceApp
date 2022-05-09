@@ -59,7 +59,7 @@ namespace BackRowCommerceApp.Controllers
                 else if (obj.CR_DR == Constants.TransactionType.DR)
                 {
                     var newBalance = balance - obj.Amount;
-                    user.Balance = (float)newBalance;
+                    user.Balance = newBalance;
                     _db.UserInfo.Update(user);
                 }
                 obj.AccountNum = user.AccountNum;

@@ -16,8 +16,8 @@
         <div class="mb-3">
             <label asp-for="CR_DR"></label>
             <select asp-validation-for="CR_DR" class="form-select"  style="color:black">
-                <option asp-validation-for="CR_DR" style="color:black">Deposit</option>
-                <option asp-validation-for="CR_DR" style="color:black">Withdrawal</option>
+                <option value="@Constants.TransactionType.CR" asp-validation-for="CR_DR" style="color:black">Deposit</option>
+                <option value="@Constants.TransactionType.DR" asp-validation-for="CR_DR" style="color:black">Withdrawal</option>
             </select>
         </div>
         <div>
@@ -27,8 +27,9 @@
                     Constants states = new Constants();
                     foreach(KeyValuePair<Constants.States,string> state in states.statesMap())
                     {
-                        string st = state.Value;
-                        <option asp-validation-for="Location" style="color:black">@state.Value</option>
+                        <option value="@state.Key" asp-validation-for="Location" style="color:black">
+                            @state.Value
+                        </option>
                     }
                 }
               </select>

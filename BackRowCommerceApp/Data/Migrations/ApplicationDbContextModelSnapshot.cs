@@ -30,11 +30,11 @@ namespace BackRowCommerceApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("AccountNum")
-                        .IsRequired()
-                        .HasColumnType("int");
-
                     b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -50,10 +50,6 @@ namespace BackRowCommerceApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
-
-                    b.Property<int?>("AccountNum")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.Property<bool>("Deposit")
                         .HasColumnType("bit");
@@ -72,6 +68,10 @@ namespace BackRowCommerceApp.Migrations
 
                     b.Property<bool>("TransactionTime")
                         .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Withdrawal")
                         .HasColumnType("bit");
@@ -105,9 +105,8 @@ namespace BackRowCommerceApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Location")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ProcessDate")
                         .HasColumnType("datetime2");

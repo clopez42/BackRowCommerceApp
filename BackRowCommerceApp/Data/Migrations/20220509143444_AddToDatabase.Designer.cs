@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackRowCommerceApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220508235918_initial")]
-    partial class initial
+    [Migration("20220509143444_AddToDatabase")]
+    partial class AddToDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,6 +24,27 @@ namespace BackRowCommerceApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("BackRowCommerceApp.Models.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
+                });
+
             modelBuilder.Entity("BackRowCommerceApp.Models.NotificationSettings", b =>
                 {
                     b.Property<int?>("Id")
@@ -31,10 +52,6 @@ namespace BackRowCommerceApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
-
-                    b.Property<int?>("AccountNum")
-                        .IsRequired()
-                        .HasColumnType("int");
 
                     b.Property<bool>("Deposit")
                         .HasColumnType("bit");
@@ -54,6 +71,10 @@ namespace BackRowCommerceApp.Migrations
                     b.Property<bool>("TransactionTime")
                         .HasColumnType("bit");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Withdrawal")
                         .HasColumnType("bit");
 
@@ -71,7 +92,6 @@ namespace BackRowCommerceApp.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("TransactionId"), 1L, 1);
 
                     b.Property<int?>("AccountNum")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<float?>("Amount")
@@ -96,6 +116,34 @@ namespace BackRowCommerceApp.Migrations
                     b.HasKey("TransactionId");
 
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("BackRowCommerceApp.Models.UserInfo", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 1L, 1);
+
+                    b.Property<int?>("AccountNum")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("int");
+
+                    b.Property<float?>("Balance")
+                        .IsRequired()
+                        .HasColumnType("real");
+
+                    b.Property<int>("Location")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserInfo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

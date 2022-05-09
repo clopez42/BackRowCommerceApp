@@ -7,7 +7,7 @@ namespace BackRowCommerceApp.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public int? AccountNum { get; set; }
+        public string? UserName { get; set; }
         [Required]
         public string? Message { get; set; }
     }

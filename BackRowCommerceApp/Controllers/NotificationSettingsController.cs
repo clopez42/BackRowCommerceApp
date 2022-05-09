@@ -14,7 +14,24 @@ namespace BackRowCommerceApp.Controllers
         }
         public IActionResult Index()
         {
-            IEnumerable<NotificationSettings> objNotificationSettingsList = _db.NotificationSettings;
+            NotificationSettings objNotificationSettingsList = _db.NotificationSettings.FirstOrDefault(u => u.Id == 1);
+            if(objNotificationSettingsList == null)
+            {
+                NotificationSettings notificationSettings = new NotificationSettings
+                {
+                    UserName = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name).UserName,
+                    TransactionDate = false,
+                    TransactionTime = false,
+                    OutOfStateTransaction = false,
+                    Withdrawal = false,
+                    Deposit = false,
+                    Overdraft = false,
+                    TransactionDescription = false
+                };
+                _db.NotificationSettings.Add(notificationSettings);
+                _db.SaveChanges();
+                objNotificationSettingsList = _db.NotificationSettings.FirstOrDefault(u => u.Id == 1);
+            }
             return View(objNotificationSettingsList);
         }
 

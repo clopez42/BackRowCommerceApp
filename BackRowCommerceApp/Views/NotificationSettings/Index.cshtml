@@ -1,14 +1,46 @@
-﻿@model IEnumerable<NotificationSettings>
-
+﻿@model NotificationSettings
+@{
+    ViewData["Title"] = "Notification Settings";
+}
 
 <h2 style="color:#007AA3; text-align:center">Selected Notifications</h2>
-<div class="list-group">
-  <a href="#" class="list-group-item list-group-item-action active">Cras justo odio</a>
-  <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-  <a href="#" class="list-group-item list-group-item-action disabled">Morbi leo risus</a>
-</div>
-<div class="col-6 text-right">
-    <a asp-controller="NotificationSettings" asp-action="Edit" class="btn btn-lg" style="background-color:#006747; color:white">
-        <i class="bi bi-gear"></i> &nbsp; Edit Notifications
-    </a>
-</div>
+<form asp-action="Index">
+    <div class="list-group">
+    @{
+        var obj = Model;
+        if(obj.TransactionDate == true)
+        {
+            <a href="#" class="list-group-item list-group-item-action">Date Of Transactions</a>
+        }
+        if(obj.TransactionTime == true)
+        {
+            <a href="#" class="list-group-item list-group-item-action">Time Of Transactions</a>
+        }
+        if(obj.OutOfStateTransaction == true)
+        {
+            <a href="#" class="list-group-item list-group-item-action">Out Of State Transactions</a>
+        }
+        if(obj.Withdrawal == true)
+        {
+            <a href="#" class="list-group-item list-group-item-action">Withdrawal Confirmation</a>
+        }
+        if(obj.Deposit == true)
+        {
+            <a href="#" class="list-group-item list-group-item-action">Deposit Confirmations</a>
+        }
+        if(obj.Overdraft == true)
+        {
+            <a href="#" class="list-group-item list-group-item-action">Overdraft</a>
+        }
+        if(obj.TransactionDescription == true)
+        {
+            <a href="#" class="list-group-item list-group-item-action">Transaction Description</a>
+        }
+    }   
+    </div>
+    <div class="col-6 text-right">
+        <a asp-controller="NotificationSettings" asp-action="Edit"  asp-route-id="@obj.Id" class="btn btn-lg" style="background-color:#006747; color:white">
+            <i class="bi bi-gear"></i> &nbsp; Edit Notifications
+        </a>
+    </div>
+</form>
