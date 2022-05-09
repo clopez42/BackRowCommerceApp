@@ -31,34 +31,27 @@ namespace BackRowCommerceApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Transaction obj)
         {
-            var user = _db.UserInfo.Find(1);
+            NotificationController n = new NotificationController(_db);
+            UserController u = new UserController(_db);
+            var user = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
             if(user == null)
             {
-                UserInfo userInfo = new UserInfo
-                {
-                    AccountNum = AccountNumberGenerator(),
-                    UserName = User.Identity.Name,
-                    Balance = 0,
-                    Location = Constants.States.MO
-                };
-                _db.UserInfo.Add(userInfo); 
-                _db.SaveChanges();
+                //u.CreateUser(Constants.States.MO);
                 user = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
             }
-            //var user = _db.UserInfo.Find(obj.AccountNum);
-            var balance = user.Balance;
+            obj.UserName = user.UserName;
 
             if (ModelState.IsValid)
             {
                 if (obj.CR_DR == Constants.TransactionType.CR)
                 {
-                    var newBalance = balance + obj.Amount;
+                    var newBalance = user.Balance + obj.Amount;
                     user.Balance = newBalance;
                     _db.UserInfo.Update(user);
                 }
                 else if (obj.CR_DR == Constants.TransactionType.DR)
                 {
-                    var newBalance = balance - obj.Amount;
+                    var newBalance = user.Balance - obj.Amount;
                     user.Balance = newBalance;
                     _db.UserInfo.Update(user);
                 }
@@ -66,17 +59,11 @@ namespace BackRowCommerceApp.Controllers
                 obj.Balance = user.Balance;
                 _db.Transactions.Add(obj);
                 _db.SaveChanges();
-                TempData["success"] = "Transaction created successfully";
+                
+                n.Create();
                 return RedirectToAction("Index");
             }
             return View(obj);
-        }
-
-        private int AccountNumberGenerator()
-        {
-            Random random = new Random();
-            int accountNum = random.Next(123456789, 999999999);
-            return accountNum;
         }
     }
 }

@@ -68,7 +68,7 @@ namespace BackRowCommerceApp.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TransactionDate = table.Column<bool>(type: "bit", nullable: false),
                     TransactionTime = table.Column<bool>(type: "bit", nullable: false),
                     OutOfStateTransaction = table.Column<bool>(type: "bit", nullable: false),
@@ -88,6 +88,7 @@ namespace BackRowCommerceApp.Migrations
                 {
                     TransactionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccountNum = table.Column<int>(type: "int", nullable: true),
                     ProcessDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Balance = table.Column<float>(type: "real", nullable: true),

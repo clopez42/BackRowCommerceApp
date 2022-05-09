@@ -18,5 +18,42 @@ namespace BackRowCommerceApp.Controllers
         }
 
        
+
+        public void Create()
+        {
+
+        }
+
+        //GET 
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            var notificationFromDb = _db.Notifications.Find(id);
+
+            if (notificationFromDb == null)
+            {
+                return NotFound();
+            }
+            return View(notificationFromDb);
+        }
+
+        //POST
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeletePOST(int? id)
+        {
+            var obj = _db.Notifications.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _db.Notifications.Remove(obj);
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

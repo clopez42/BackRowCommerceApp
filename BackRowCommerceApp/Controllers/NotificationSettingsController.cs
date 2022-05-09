@@ -14,12 +14,12 @@ namespace BackRowCommerceApp.Controllers
         }
         public IActionResult Index()
         {
-            NotificationSettings objNotificationSettingsList = _db.NotificationSettings.FirstOrDefault(u => u.Id == 1);
+            NotificationSettings objNotificationSettingsList = _db.NotificationSettings.FirstOrDefault(u => u.UserName == User.Identity.Name);
             if(objNotificationSettingsList == null)
             {
                 NotificationSettings notificationSettings = new NotificationSettings
                 {
-                    UserName = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name).UserName,
+                    UserName = User.Identity.Name,
                     TransactionDate = false,
                     TransactionTime = false,
                     OutOfStateTransaction = false,
@@ -30,7 +30,7 @@ namespace BackRowCommerceApp.Controllers
                 };
                 _db.NotificationSettings.Add(notificationSettings);
                 _db.SaveChanges();
-                objNotificationSettingsList = _db.NotificationSettings.FirstOrDefault(u => u.Id == 1);
+                objNotificationSettingsList = _db.NotificationSettings.FirstOrDefault(u => u.UserName == User.Identity.Name);
             }
             return View(objNotificationSettingsList);
         }
@@ -56,10 +56,6 @@ namespace BackRowCommerceApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(NotificationSettings obj)
         {
-            //if (obj.Name == obj.DisplayOrder.ToString())
-            //{
-            //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
-            //}
             obj.UserName = User.Identity.Name;
             if (ModelState.IsValid)
             {

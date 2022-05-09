@@ -70,7 +70,6 @@ namespace BackRowCommerceApp.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Withdrawal")
@@ -110,6 +109,9 @@ namespace BackRowCommerceApp.Migrations
 
                     b.Property<DateTime>("ProcessDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TransactionId");
 
