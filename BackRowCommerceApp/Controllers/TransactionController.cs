@@ -64,7 +64,6 @@ namespace BackRowCommerceApp.Controllers
                 }
                 obj.AccountNum = user.AccountNum;
                 obj.Balance = user.Balance;
-                //obj.Location = user.Location;
                 _db.Transactions.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Transaction created successfully";

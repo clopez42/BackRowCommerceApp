@@ -7,6 +7,7 @@ namespace BackRowCommerceApp.Models
     {
         [Key]
         public int? TransactionId { get; set; }
+        public string? UserName { get; set; }
         public int? AccountNum { get; set; }
         public DateTime ProcessDate { get; set; } = DateTime.Now;
         public float? Balance { get; set; }

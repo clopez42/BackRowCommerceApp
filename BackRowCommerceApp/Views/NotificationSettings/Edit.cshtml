@@ -1,58 +1,72 @@
 ﻿@model NotificationSettings
-
-
+@{
+    ViewData["Title"] = "Edit Notification Settings";
+}
 <form method="post" asp-action="Edit">
     <div class="border p-3 mt-4">
         <fieldset class="form-group">
-          <legend class="mt-4">Checkboxes</legend>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
-              Default checkbox
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked="">
-            <label class="form-check-label" for="flexCheckChecked">
-              Checked checkbox
-            </label>
-          </div>
-        </fieldset>
-    </div>
-</form>
-
-
-
-<form method="post" asp-action="Edit">
-    <div class="border p-3 mt-4">
-        <div class="row pb-2">
-            <h2 class="text-primary">Edit Notification Settings</h2>
+            <div class="row pb-2">
+                <h2 style="color:#007AA3">Edit Notification Settings</h2>
+                <hr />
+            </div>
+            <div asp-validation-summary="All"></div>
+            <div class="form-check">
+                <input asp-for="TransactionDate" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="TransactionDate">
+                    Date Of Transactions
+                </label>
+            </div>
             <hr />
+            <div class="form-check">
+                <input asp-for="TransactionTime" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="TransactionTime">
+                    Time Of Transactions
+                </label>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input asp-for="OutOfStateTransaction" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="OutOfStateTransaction">
+                    Out of State Transactions
+                </label>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input asp-for="Withdrawal" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="Withdrawal">
+                    Withdrawals
+                </label>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input asp-for="Deposit" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="Deposit">
+                    Deposits
+                </label>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input asp-for="Overdraft" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="Overdraft">
+                    Account Overdraft
+                </label>
+            </div>
+            <hr />
+            <div class="form-check">
+                <input asp-for="TransactionDescription" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="TransactionDescription">
+                    Transaction Description
+                </label>
+            </div>
+        </fieldset>
+     </div>
+     <div>
+        <button type="submit" class="btn" style="width:150px; background-color:#006747; color:white;">Update</button>
+            <a asp-controller="NotificationSettings" asp-action="Index" class="btn btn-secondary">
+                Back to list
+            </a>
         </div>
-        <div asp-validation-summary="All"></div>
-        <!--<div class="mb-3">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="DisplayOrder"></label>
-            <input asp-for="DisplayOrder" class="form-control" />
-            <span asp-validation-for="DisplayOrder" class="text-danger"></span>-->
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:150px">Update</button>
-        <a asp-controller="Category" asp-action="Index" class="btn btn-secondary" style="width:150px">
-            Back to list
-        </a>
-    </div>
-     
 </form>
-
-
-
-
-
-
 
 @section Scripts{
 <partial name="_ValidationScriptsPartial" />

@@ -1,5 +1,8 @@
 ﻿@using BackRowCommerceApp.Infrastructure
 @model Transaction
+@{
+    ViewData["Title"] = "Create Transaction";
+}
 
 <form method="post">
     <div class="border p-3 mt-4">
@@ -15,7 +18,7 @@
         </div>
         <div class="mb-3">
             <label asp-for="CR_DR"></label>
-            <select asp-validation-for="CR_DR" class="form-select"  style="color:black">
+            <select asp-for="CR_DR" class="form-select" style="color:black">
                 <option value="@Constants.TransactionType.CR" asp-validation-for="CR_DR" style="color:black">Deposit</option>
                 <option value="@Constants.TransactionType.DR" asp-validation-for="CR_DR" style="color:black">Withdrawal</option>
             </select>

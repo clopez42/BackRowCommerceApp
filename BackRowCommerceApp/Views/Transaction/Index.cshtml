@@ -48,42 +48,39 @@
     </thead>
     <tbody>
         @foreach(var obj in Model)
+        {
+            if(obj.UserName == User.Identity.Name)
             {
-              //Constants c = new Constants();
-              //string? st;
-              //st = c.findKey(@obj.Location).ToString();
-        <tr>
-            <td width="15%" style="text-align: right; padding-right: 50px">
-                @obj.AccountNum
-            </td>
-            <td width="15%">
-                @obj.ProcessDate.ToString("g",CultureInfo.GetCultureInfo("en-US"))
-            </td>
-            <td width="10%" style="text-align: right; padding-right: 50px">
-                $@obj.Balance
-            </td>
-                @if(@obj.CR_DR == Constants.TransactionType.CR)
-                {
-                    <td width="15%">
-                        Credit
+                <tr>
+                    <td width="15%" style="text-align: right; padding-right: 50px">
+                        @obj.AccountNum
                     </td>
-                }else if(obj.CR_DR == Constants.TransactionType.DR)
-                {
                     <td width="15%">
-                        Withdrawal
+                        @obj.ProcessDate.ToString("g",CultureInfo.GetCultureInfo("en-US"))
                     </td>
-                }
+                    <td width="10%" style="text-align: right; padding-right: 50px">
+                        $@obj.Balance
+                    </td>
+                    @if(@obj.CR_DR == Constants.TransactionType.CR)
+                    {
+                        <td width="15%">Credit</td>
+                    }else if(obj.CR_DR == Constants.TransactionType.DR)
+                    {
+                        <td width="15%">Withdrawal</td>
+                    }
                 
-            <td width="10%" style="text-align: right; padding-right: 50px">
-                $@obj.Amount
-            </td>
-            <td width="10%" >
-                @obj.Location
-            </td>
-            <td width="40%">
-                @obj.Description
-            </td>
-        </tr>
+                    <td width="10%" style="text-align: right; padding-right: 50px">
+                        $@obj.Amount
+                    </td>
+                    <td width="10%" >
+                        @obj.Location
+                    </td>
+                    <td width="40%">
+                        @obj.Description
+                    </td>
+                </tr>
             }
+            
+        }
     </tbody>
 </table>

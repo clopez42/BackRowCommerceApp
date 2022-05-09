@@ -60,11 +60,11 @@ namespace BackRowCommerceApp.Controllers
             //{
             //    ModelState.AddModelError("name", "The DisplayOrder cannot exactly match the Name.");
             //}
+            obj.UserName = User.Identity.Name;
             if (ModelState.IsValid)
             {
                 _db.NotificationSettings.Update(obj);
                 _db.SaveChanges();
-                TempData["success"] = "Notifications updated successfully";
 
                 return RedirectToAction("Index");
             }
