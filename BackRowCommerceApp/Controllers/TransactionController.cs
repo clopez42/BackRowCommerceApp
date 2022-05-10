@@ -81,41 +81,49 @@ namespace BackRowCommerceApp.Controllers
 
         public void GenerateNotification(Transaction obj)
         {
-            string message = "Transaction: ";
+            Constants c = new Constants();
+            string message = "";
             var userInfoFromDb = _db.UserInfo.FirstOrDefault(u => u.UserName == User.Identity.Name);
             var notificationSettingsFromDb = _db.NotificationSettings.FirstOrDefault(u => u.UserName == User.Identity.Name);
 
             if (notificationSettingsFromDb != null)
             {
-                if ((notificationSettingsFromDb.LessThan100 == true) && (userInfoFromDb.Balance < 100))
+                if (notificationSettingsFromDb.TransactionDescription == true)
                 {
-                    string lowBal = "Your account balance is less than $100";
-                    message += lowBal;
+                    string description = "New transaction from " + obj.Description + ".";
+                    message += description;
                 }
                 if (notificationSettingsFromDb.OutOfStateTransaction == true)
                 {
-                    string oost = obj.Location.ToString();
-                    message += oost;
+                    var map = c.statesMap();
+                    foreach(KeyValuePair<Constants.States,string> kvp in map)
+                    {
+                        if(kvp.Key == obj.Location)
+                        {
+                            message += "\nNew Transaction from " + kvp.Value + ".";
+                        }
+                    }
+                    
                 }
-                if (notificationSettingsFromDb.Withdrawal == true)
+                if ((notificationSettingsFromDb.Withdrawal == true) && (obj.CR_DR == Constants.TransactionType.DR))
                 {
-                    string w = "Withdrawal of $" + obj.Amount.ToString();
+                    string w = "\nNew Withdrawal of $" + obj.Amount.ToString() + ".";
                     message += w;
                 }
-                if (notificationSettingsFromDb.Deposit == true)
+                if ((notificationSettingsFromDb.Deposit == true) && (obj.CR_DR == Constants.TransactionType.DR))
                 {
-                    string d = "Deposit of $" + obj.Amount.ToString();
+                    string d = "\nNew Deposit of $" + obj.Amount.ToString() + ".";
                     message += d;
                 }
                 if ((notificationSettingsFromDb.Overdraft == true) && (userInfoFromDb.Balance < 0))
                 {
-                    string o = "Your account has overdrafted";
+                    string o = "\nYour account has overdrafted.";
                     message += o;
                 }
-                if (notificationSettingsFromDb.TransactionDescription == true)
+                if ((notificationSettingsFromDb.LessThan100 == true) && (userInfoFromDb.Balance < 100))
                 {
-                    string description = obj.Description;
-                    message += description;
+                    string lowBal = "\nYour account balance is less than $100.";
+                    message += lowBal;
                 }
                 if ((notificationSettingsFromDb.LessThan100 == true) || (notificationSettingsFromDb.OutOfStateTransaction == true)
                     || (notificationSettingsFromDb.Withdrawal == true) || (notificationSettingsFromDb.Deposit == true)
