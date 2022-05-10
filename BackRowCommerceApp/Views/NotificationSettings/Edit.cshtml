@@ -11,16 +11,9 @@
             </div>
             <div asp-validation-summary="All"></div>
             <div class="form-check">
-                <input asp-for="TransactionDate" class="form-check-input" type="checkbox" value="true" >
-                <label class="form-check-label" asp-validation-for="TransactionDate">
-                    Date Of Transactions
-                </label>
-            </div>
-            <hr />
-            <div class="form-check">
-                <input asp-for="TransactionTime" class="form-check-input" type="checkbox" value="true" >
-                <label class="form-check-label" asp-validation-for="TransactionTime">
-                    Time Of Transactions
+                <input asp-for="LessThan100" class="form-check-input" type="checkbox" value="true" >
+                <label class="form-check-label" asp-validation-for="LessThan100">
+                    Account Balance Less Than $100
                 </label>
             </div>
             <hr />

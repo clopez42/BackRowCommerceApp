@@ -87,15 +87,10 @@ namespace BackRowCommerceApp.Controllers
 
             if (notificationSettingsFromDb != null)
             {
-                if (notificationSettingsFromDb.TransactionDate == true)
+                if ((notificationSettingsFromDb.LessThan100 == true) && (userInfoFromDb.Balance < 100))
                 {
-                    string tDate = obj.ProcessDate.ToString();
-                    message += tDate;
-                }
-                if (notificationSettingsFromDb.TransactionTime == true)
-                {
-                    string tTime = obj.ProcessDate.ToString();
-                    message += tTime;
+                    string lowBal = "Your account balance is less than $100";
+                    message += lowBal;
                 }
                 if (notificationSettingsFromDb.OutOfStateTransaction == true)
                 {
@@ -122,10 +117,10 @@ namespace BackRowCommerceApp.Controllers
                     string description = obj.Description;
                     message += description;
                 }
-                if ((notificationSettingsFromDb.TransactionDate == true) || (notificationSettingsFromDb.TransactionTime == true)
-                    || (notificationSettingsFromDb.OutOfStateTransaction == true) || (notificationSettingsFromDb.Withdrawal == true)
-                    || (notificationSettingsFromDb.Deposit == true) || (notificationSettingsFromDb.Overdraft == true)
-                    || (notificationSettingsFromDb.TransactionDescription == true))
+                if ((notificationSettingsFromDb.LessThan100 == true) || (notificationSettingsFromDb.OutOfStateTransaction == true)
+                    || (notificationSettingsFromDb.Withdrawal == true) || (notificationSettingsFromDb.Deposit == true)
+                    || (notificationSettingsFromDb.Overdraft == true) || (notificationSettingsFromDb.TransactionDescription == true))
+
                 {
                     Notification notification = new Notification
                     {

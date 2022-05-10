@@ -54,19 +54,16 @@ namespace BackRowCommerceApp.Migrations
                     b.Property<bool>("Deposit")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("LessThan100")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("OutOfStateTransaction")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Overdraft")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("TransactionDate")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("TransactionDescription")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("TransactionTime")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")

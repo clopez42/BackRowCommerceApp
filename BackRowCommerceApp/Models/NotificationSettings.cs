@@ -8,9 +8,7 @@ namespace BackRowCommerceApp.Models
         public int? Id { get; set; }
         public string? UserName { get; set; }
         [Required]
-        public bool TransactionDate { get; set; }
-        [Required]
-        public bool TransactionTime { get; set; }
+        public bool LessThan100 { get; set; }
         [Required]
         public bool OutOfStateTransaction { get; set; }
         [Required]

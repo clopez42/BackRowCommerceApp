@@ -20,8 +20,7 @@ namespace BackRowCommerceApp.Controllers
                 NotificationSettings notificationSettings = new NotificationSettings
                 {
                     UserName = User.Identity.Name,
-                    TransactionDate = false,
-                    TransactionTime = false,
+                    LessThan100 = false,
                     OutOfStateTransaction = false,
                     Withdrawal = false,
                     Deposit = false,

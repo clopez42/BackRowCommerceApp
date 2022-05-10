@@ -69,8 +69,7 @@ namespace BackRowCommerceApp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TransactionDate = table.Column<bool>(type: "bit", nullable: false),
-                    TransactionTime = table.Column<bool>(type: "bit", nullable: false),
+                    LessThan100 = table.Column<bool>(type: "bit", nullable: false),
                     OutOfStateTransaction = table.Column<bool>(type: "bit", nullable: false),
                     Withdrawal = table.Column<bool>(type: "bit", nullable: false),
                     Deposit = table.Column<bool>(type: "bit", nullable: false),

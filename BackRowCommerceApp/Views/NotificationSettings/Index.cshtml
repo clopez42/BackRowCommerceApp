@@ -8,13 +8,9 @@
     <div class="list-group">
     @{
         var obj = Model;
-        if(obj.TransactionDate == true)
+        if(obj.LessThan100 == true)
         {
-            <span class="list-group-item disabled">Date Of Transactions</span>
-        }
-        if(obj.TransactionTime == true)
-        {
-            <span class="list-group-item disabled">Time Of Transactions</span>
+            <span class="list-group-item disabled">Balance Less Than $100</span>
         }
         if(obj.OutOfStateTransaction == true)
         {

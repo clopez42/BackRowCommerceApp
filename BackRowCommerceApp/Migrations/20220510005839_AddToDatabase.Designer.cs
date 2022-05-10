@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackRowCommerceApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220509171449_AddToDatabase")]
+    [Migration("20220510005839_AddToDatabase")]
     partial class AddToDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,19 +56,16 @@ namespace BackRowCommerceApp.Migrations
                     b.Property<bool>("Deposit")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("LessThan100")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("OutOfStateTransaction")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Overdraft")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("TransactionDate")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("TransactionDescription")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("TransactionTime")
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
