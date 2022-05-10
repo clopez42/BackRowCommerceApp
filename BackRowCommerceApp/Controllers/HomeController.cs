@@ -34,7 +34,18 @@ namespace BackRowCommerceApp.Controllers
                 _db.UserInfo.Add(userInfo);
                 _db.SaveChanges();
             }
-            return View();
+            UserInfo currentUser = new UserInfo();
+            IEnumerable<UserInfo> userlist = _db.UserInfo;
+            foreach(var u in userlist)
+            {
+                if(u.UserName == User.Identity.Name)
+                {
+                    currentUser.AccountNum = u.AccountNum;
+                    currentUser.UserName = u.UserName;
+                    currentUser.Balance = u.Balance;
+                }
+            }
+            return View(currentUser);
         }
 
         public IActionResult Privacy()

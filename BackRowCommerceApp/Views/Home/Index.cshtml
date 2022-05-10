@@ -1,4 +1,5 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@model BackRowCommerceApp.Models.UserInfo
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 @{
@@ -10,3 +11,22 @@
     <h1 class="display-4">Dashboard</h1>
    
 </div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+
+    </div>
+    <div class="col-lg col-6 col-md-6">
+        <h1>Account...@Html.DisplayFor(model => model.AccountNum)</h1>
+
+        <p class="lead">Balance: $@Html.DisplayFor(model => model.Balance)</p>
+    </div>
+    <div class="col-lg-3 col-md-3">
+
+    </div>
+}
+else
+{
+    <meta http-equiv="refresh" content="1;url=/Identity/Account/Login">
+}

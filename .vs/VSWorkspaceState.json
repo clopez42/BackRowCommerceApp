@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BackRowCommerceApp",
-    "\\BackRowCommerceApp\\Data",
-    "\\BackRowCommerceApp\\Models"
+    "\\BackRowCommerceApp"
   ],
   "SelectedNode": "\\BackRowCommerceApp.sln",
   "PreviewInSolutionExplorer": false
