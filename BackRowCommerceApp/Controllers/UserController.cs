@@ -49,8 +49,10 @@ namespace BackRowCommerceApp.Controllers
         private int AccountNumberGenerator()
         {
             Random random = new Random();
-            int accountNum = random.Next(123456789, 999999999);
-            return accountNum;
+            /*int accountNum = random.Next(123456789, 999999999);
+            return accountNum;*/
+
+            return random.Next(123456789, 999999999);
         }
     }
 }

@@ -16,7 +16,9 @@
     <tbody>
         @foreach(var obj in Model)
         {
-            <tr class="table-light">
+            @if(obj.UserName == User.Identity.Name)
+            {
+                <tr class="table-light">
                 <td width="85%">
                     @obj.Message
                 </td>
@@ -27,6 +29,7 @@
                 </div>
                 </td>
             </tr>
+            } 
         }
     </tbody>
 </table>

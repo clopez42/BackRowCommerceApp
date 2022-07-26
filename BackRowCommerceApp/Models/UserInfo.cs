@@ -13,6 +13,7 @@ namespace BackRowCommerceApp.Models
         public int? AccountNum { get; set; }
         public string? UserName { get; set; }
         [Required]
+        [RegularExpression(@"^\d+(\.\d{1,2})?$")]
         public float? Balance { get; set; }
         [EnumDataType(typeof(Constants.States))]
         public Constants.States Location { get; set; }
